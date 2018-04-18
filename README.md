@@ -40,10 +40,6 @@
 | Minseok  Kang | Student    |     |
 | Jaehun Kim    | student    |     |
 | Hansae Ju     | Student    |     |
-| ChaeHyun Baek | Student    |     |
-| Kim Tae Yoon  | Student    |     |
-| KeonWoong Noh | Student    |     |
-| Onyu Park     | Student    |     |
 | TaeWoong Kong | Student    |     |
 | KeonWoong Noh | Student    |     |
 | ChaeHyun Baek | Student    |     |
