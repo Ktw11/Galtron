@@ -54,7 +54,7 @@ def checkEvents1(setting, screen, stats, sb, bMenu, ship, aliens, bullets, eBull
 def buttonAction(stats, selectedName, bMenu, setting, sb):
     if selectedName == 'menu':
         stats.setGameLoop('mainMenu')
-    if selectedName == 'invert':
+    elif selectedName == 'invert':
         bMenu.invertColorAll()
         setting.invertColor()
         sb.invertColor()
@@ -62,6 +62,13 @@ def buttonAction(stats, selectedName, bMenu, setting, sb):
     elif selectedName == 'quit':
         pg.time.delay(300)
         sys.exit()
+    elif selectedName == 'speed setting':
+        stats.setGameLoop('speedMenu')
+    elif selectedName == 'interception':
+        setting.checkBtnPressed += 1
+        if setting.checkBtnPressed % 2 != 0:
+            setting.interception = True
+        stats.setGameLoop('mainMenu')
 
 
 def drawMenu(setting, screen, sb, bMenu):

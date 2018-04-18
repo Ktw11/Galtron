@@ -5,20 +5,22 @@ from pygame.sprite import Group
 import about as About
 import gameFunctions as gf  # Event checker and update screen
 import intro  # intro video making
-import mainMenu as mm  # Main menu
 import levelMenu as lm  # select game level(hard/easy)
+import mainMenu as mm  # Main menu
 import playMenu as pm  # choosing ship color
 import settingsMenu as sm
-import twoPlayer as tp  # two player mode
 import sounds
+import speedMenu as spm
+import twoPlayer as tp  # two player mode
 from animations import Explosions
-from buttonMenu import ButtonMenu
 from background import BackgroundManager
+from buttonMenu import ButtonMenu
 from gameStats import GameStats  # Game stats that are changed during the duration of the game
 from scoreboard import Scoreboard  # Score board for points, high score, lives, level ect.
 # import self made classes
 from settings import Settings
 from ship import Ship
+
 
 def runGame():
     # Initialize game and create a window
@@ -36,7 +38,7 @@ def runGame():
 
     bMenu = ButtonMenu(screen)
     bMenu.addButton("play", "PLAY")
-    bMenu.addButton("menu", "MENU")
+    bMenu.addButton("menu", "BACK")
     bMenu.addButton("twoPlay", "2PVS")
     bMenu.addButton("settings", "SETTINGS")
     bMenu.addButton("invert", "INVERT")
@@ -49,13 +51,48 @@ def runGame():
     bMenu.addButton("hard", "HARD")
     bMenu.addButton("normal", "NORMAL")
     bMenu.addButton("back", "MENU")
+<<<<<<< HEAD
     
     mainMenuButtons = ["play", "about", "settings", "quit"] # delete "twoPlay"
     playMenuButtons = ["grey", "red", "blue", "menu", "quit"]
     levelMenuButtons = ["hard", "normal", "back", "quit"]
+=======
+    bMenu.addButton("speed setting", "SPEED")
+    bMenu.addButton("fast", "FAST")
+    bMenu.addButton("middle", "MIDDLE")
+    bMenu.addButton("slow", "SLOW")
+    bMenu.addButton("yes", "YES")
+    bMenu.addButton("no", "NO")
+    bMenu.addButton("interception", "INTERCEPT")
+
+    bMenu.addButton("sound", "SOUND")
+    bMenu.addButton("loud", "LOUD")
+    bMenu.addButton("low", "LOW")
+
+    mainMenuButtons = ["play", "about", "settings", "quit"]  # delete "twoPlay"
+    playMenuButtons = ["grey", "red", "blue", "menu", "quit"]
+    levelMenuButtons = ["hard", "normal", "back", "quit"]
+
+>>>>>>> 23d39c5cce5e8ed43c7a7b9b2607b84c39de53a7
     mainGameButtons = ["play", "menu", "quit"]
     aboutButtons = ["menu", "quit"]
-    settingsMenuButtons = ["menu", "invert", "quit"]
+
+    soundButtons = ["loud", "low", "menu"]
+
+    settingsMenuButtons = ["menu", "invert", "speed setting", "interception", "quit"]
+    speedButtons = ["menu", "fast", "middle", "slow"]
+    settingsMenuButtons = ["menu", "invert","speed setting","sound","quit"]
+    speedButtons = ["fast","middle","slow","menu"]
+
+    soundButtons =["loud","low","menu"]
+    settingsMenuButtons = ["menu", "invert","speed setting","quit"]
+    speedButtons = ["fast","middle","slow"]
+    settingsMenuButtons = ["menu", "invert","speed setting","quit"]
+    speedButtons = ["fast","middle","slow"]
+    settingsMenuButtons = ["menu", "invert","speed setting","quit"]
+    speedButtons = ["fast","middle","slow"]
+    settingsMenuButtons = ["menu", "invert","speed setting","quit"]
+    speedButtons = ["fast","middle","slow","menu"]
 
     bgManager = BackgroundManager(screen)
     bgManager.setFillColor((0, 0, 0))
@@ -73,7 +110,7 @@ def runGame():
     ship1 = Ship(setting, screen)
     ship2 = Ship(setting, screen)
 
-    #make a group of items to store
+    # make a group of items to store
     items = Group()
 
     # make a group of bullets to store
@@ -139,18 +176,21 @@ def runGame():
 
         while stats.mainGame:
             # Game functions
-            gf.checkEvents(setting, screen, stats, sb, bMenu, ship, aliens, bullets, eBullets, charged_bullets)  # Check for events
+            gf.checkEvents(setting, screen, stats, sb, bMenu, ship, aliens, bullets, eBullets,
+                           charged_bullets)  # Check for events
             # Reset Game
             if gf.reset == 1:
                 gf.reset = 0
                 pg.register_quit(runGame())
             if stats.gameActive:
                 gf.updateAliens(setting, stats, sb, screen, ship, aliens, bullets, eBullets)  # Update aliens
-                gf.updateBullets(setting, screen, stats, sb, ship, aliens, bullets, eBullets, charged_bullets, items) # Update collisions
+                gf.updateBullets(setting, screen, stats, sb, ship, aliens, bullets, eBullets, charged_bullets,
+                                 items)  # Update collisions
                 gf.updateItems(setting, screen, stats, sb, ship, aliens, bullets, eBullets, items)
                 ship.update(bullets, aliens)  # update the ship
                 # Update the screen
-            gf.updateScreen(setting, screen, stats, sb, ship, aliens, bullets, eBullets, charged_bullets, bMenu, bgManager, items)
+            gf.updateScreen(setting, screen, stats, sb, ship, aliens, bullets, eBullets, charged_bullets, bMenu,
+                            bgManager, items)
 
         bMenu.setMenuButtons(aboutButtons)
         bMenu.setPos(None, 500)
@@ -172,6 +212,11 @@ def runGame():
         while stats.settingsMenu:
             sm.checkEvents1(setting, screen, stats, sb, bMenu, ship, aliens, bullets, eBullets)
             sm.drawMenu(setting, screen, sb, bMenu)
+
+        bMenu.setMenuButtons(speedButtons)
+        while stats.speedMenu:
+            spm.checkEvents(setting, screen, stats, sb, bMenu, ship, aliens, bullets, eBullets)
+            spm.drawMenu(setting, screen, sb, bMenu)
 
         while stats.mainGame:
             if rungame == True:
